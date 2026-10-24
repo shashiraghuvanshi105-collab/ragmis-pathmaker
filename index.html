@@ -1,10 +1,13 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en-IN">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="Independent consulting for software testing, quality engineering, and DevOps." />
-  <title>Shashi Raghuvanshi | Software Testing & DevOps</title>
+  <meta name="robots" content="index, follow" />
+  <meta name="referrer" content="strict-origin-when-cross-origin" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; script-src 'self' 'unsafe-inline'; img-src 'self' data:; frame-ancestors 'self';" />
+  <title>Shashi Raghuvanshi | Software Testing &amp; DevOps</title>
   <style>
     :root { --paper:#f8f7f3; --ink:#191919; --muted:#696963; --line:#deddd6; --soft:#efeee8; }
     * { box-sizing:border-box; }
@@ -72,7 +75,8 @@
       <a href="#approach">Approach</a>
       <a href="#contact">Contact</a>
     </nav>
-    <a class="pill" href="mailto:info@ragmispathmaker.com">Let’s talk ↗</a>
+    <!-- Email is decoded by JS to prevent spam-bot harvesting -->
+    <a class="pill js-email" data-user="info" data-domain="ragmispathmaker.com" href="#contact">Let's talk ↗</a>
   </header>
 
   <main>
@@ -118,19 +122,39 @@
       <div class="contact">
         <div>
           <p class="eyebrow">Get in touch</p>
-          <h2>Let’s improve your delivery.</h2>
+          <h2>Let's improve your delivery.</h2>
           <p>Tell me what your team is working on.</p>
-          <a class="email" href="mailto:info@ragmispathmaker.com">info@ragmispathmaker.com</a>
+          <!-- Email is decoded by JS to prevent spam-bot harvesting -->
+          <a class="email js-email" data-user="info" data-domain="ragmispathmaker.com" data-subject="" href="#contact"></a>
         </div>
-        <a class="pill" href="mailto:info@ragmispathmaker.com?subject=Software%20Testing%20and%20DevOps%20Consulting">Contact me ↗</a>
+        <!-- Email is decoded by JS to prevent spam-bot harvesting -->
+        <a class="pill js-email" data-user="info" data-domain="ragmispathmaker.com" data-subject="Software Testing and DevOps Consulting" href="#contact">Contact me ↗</a>
       </div>
     </section>
   </main>
 
   <footer class="wrap">
-    <span>© <span id="year">2026</span> Shashi Raghuvanshi</span>
+    <span>&copy; <span id="year">2026</span> Shashi Raghuvanshi</span>
     <span>Software Testing &amp; DevOps Consulting</span>
   </footer>
-  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+
+  <script>
+    // Dynamic year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Anti-harvest: build mailto links at runtime so bots can't scrape them from raw HTML
+    document.querySelectorAll('.js-email').forEach(function(el) {
+      var u = el.getAttribute('data-user');
+      var d = el.getAttribute('data-domain');
+      if (!u || !d) return;
+      var addr = u + '@' + d;
+      var subj = el.getAttribute('data-subject');
+      var href = 'mailto:' + addr;
+      if (subj) href += '?subject=' + encodeURIComponent(subj);
+      el.href = href;
+      // If the link has no visible text children (the contact-section email), show the address
+      if (el.classList.contains('email')) el.textContent = addr;
+    });
+  </script>
 </body>
 </html>
