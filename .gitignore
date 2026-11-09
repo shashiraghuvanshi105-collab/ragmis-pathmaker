@@ -1,15 +1,4 @@
-# Environment & Secrets
-.env
-.env.*
-!.env.example
-*.pem
-*.key
-*.pfx
-*.p12
-id_rsa*
-id_ed25519*
-secrets.*
-credentials.*
+
 
 # Operating System Files
 .DS_Store

@@ -1,0 +1,14 @@
+{
+  "name": "ragmispathmaker-store",
+  "version": "1.0.0",
+  "description": "Static site with Polar checkout integration and Vercel Resend webhook fulfillment",
+  "type": "module",
+  "scripts": {
+    "dev": "vercel dev",
+    "start": "npx serve ."
+  },
+  "dependencies": {
+    "resend": "^3.5.0",
+    "standardwebhooks": "^1.1.1"
+  }
+}
